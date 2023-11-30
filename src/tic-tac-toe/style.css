@@ -1,0 +1,63 @@
+.ttt-title{
+  text-align: center;
+}
+
+.ttt-container {
+  text-align: center;
+}
+
+.ttt-table {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.ttt-row{
+  margin: 0;
+  padding: 0;
+}
+
+.ttt-square, .ttt-x, .ttt-o{
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 2px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+}
+
+.ttt-square:hover{
+  background-color: lightgreen;
+}
+
+.square-idle{
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 2px;
+  cursor: default;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+}
+
+.square-content{
+    text-align: center;
+    padding-top: 15px;
+}
+
+.ttt-x{
+  background-color: lightblue;
+  cursor: not-allowed;
+}
+
+.ttt-o{
+  background-color: lightslategrey;
+  cursor: not-allowed;
+}
+
+.ttt-errorMsg{
+  color: red;
+}
+
