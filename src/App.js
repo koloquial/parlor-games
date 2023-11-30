@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <Navigation />
-
+      <br />
       <TicTacToe />
     </div>
   );

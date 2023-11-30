@@ -200,7 +200,7 @@ function TicTacToe() {
         {!active ? <p>Click on New Game to get started.</p> : <p>&nbsp;</p>}
       </div>
       <Row>
-        <Col>
+        <Col xs={12} sm={12} md={6} lg={6}>
           <div className='ttt-container'>
             <table className='ttt-table'>
               <tbody>
@@ -231,7 +231,7 @@ function TicTacToe() {
             </table>
           </div>
         </Col>
-        <Col>
+        <Col xs={12} sm={12} md={6} lg={6}>
           <div className='ttt-container'>
             <h2>Record:</h2>
             <p>{record[0]} W - {record[1]} L - {record[2]} T</p>
