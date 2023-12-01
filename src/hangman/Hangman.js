@@ -12,6 +12,10 @@ function Hangman() {
   const [active, setActive] = useState(false);
   const [miss, setMiss] = useState([]);
   const [hint, setHint] = useState(null);
+  const [points, setPoints] = useState(300);
+  const [pointsDB, setPointsDB] = useState(0);
+  const [usedWords, setUsedWords] = useState([]);
+  const [round, setRound] = useState(1);
 
   useEffect(() => {
     fetch('https://random-word-api.vercel.app/api?words=10')
@@ -21,29 +25,68 @@ function Hangman() {
   }, []);
 
   function assignWords() {
-    let copy = [...data];
-    let random = Math.floor(Math.random() * data.length);
-    let temp = data[random];
-    console.log('WORD:', temp.toUpperCase())
-    temp = temp.toUpperCase();
-    setWord(temp.split(''));
-    copy.splice(random, 1);
-    setData(copy);
-    let myst = [];
-    temp.split('').forEach(letter => {
-      myst.push('');
-    });
-    setMystery(myst);
-    setActive(true);
+    //reset round variables
+    setPoints(300);
+    setMiss([]);
+    setHint(null);
+
+    if (data.length > 0) {
+      //get random word
+      let copy = [...data];
+      let random = Math.floor(Math.random() * data.length);
+      let temp = data[random];
+
+      //set random word
+      temp = temp.toUpperCase();
+      setWord(temp.split(''));
+
+      //add word to used words
+      let usedCopy = [...usedWords];
+      usedCopy.push(temp);
+
+      //remove random word from word bank
+      copy.splice(random, 1);
+      setData(copy);
+
+      //add spaces for mystery word based on length
+      let myst = [];
+      temp.split('').forEach(letter => {
+        myst.push('');
+      });
+
+      //set mystery word and activate game
+      setMystery(myst);
+      setActive(true);
+    } else {
+      //round complete
+      alert('round complete')
+    }
   }
 
   function fetchHint() {
     let temp = word.join('').toLowerCase();
-    console.log('temp', temp);
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${temp}`)
       .then(response => response.json())
       .then(json => setHint(json))
       .catch(error => console.error(error));
+  }
+
+  function checkWin() {
+    let counter = 0;
+    mystery.forEach(letter => {
+      if (letter === '') {
+        counter++;
+      }
+    })
+
+    if (counter === 0 || miss.length >= 6) {
+      //game over
+      setPointsDB(pointsDB + points);
+      if (round < 10) {
+        setRound(round + 1);
+      }
+      setActive(false);
+    }
   }
 
   function guess(letter) {
@@ -64,23 +107,43 @@ function Hangman() {
       let copy = [...miss];
       copy.push(letter);
       setMiss(copy);
+      setPoints(points - 50);
+      if (copy.length >= 6) {
+        setActive(false);
+      }
     }
 
     if (!hint) {
       fetchHint();
     }
+
+    checkWin();
+  }
+
+  function formatHint() {
+    try {
+      let temp = hint[0].meanings[0].definitions[0].definition;
+      if (temp) {
+        return temp;
+      } else {
+        return 'No hint available.'
+      }
+    } catch (e) {
+      return 'No hint available.'
+    }
   }
 
   return (
     <Container fluid>
-      {hint ? <>{console.log('hint', hint[0].meanings[0].partOfSpeech)}</> : ''}
       <div className="hangman-title">
         <h1>Hangman</h1>
         {!active ?
           <p>Click on New Game to start.</p>
           :
           <p>
-            &nbsp;
+            <b>Round:</b> {round} / 10 |&nbsp;
+            <b>Total Points:</b> {pointsDB} |&nbsp;
+            <b>Round Points:</b> {points}
           </p>
         }
       </div>
@@ -102,10 +165,16 @@ function Hangman() {
           </Col>
           <Col xs={12} sm={12} md={6} lg={6}>
             <div className="hangman-container">
-              <h4>Miss</h4>
-              {miss.map((guess, index) => {
-                return <span key={`guess-${index}`} style={{ display: 'inline-block' }}>{guess}&nbsp;</span>
-              })}
+              {active ? <>
+                <h4>Guesses</h4>
+                {miss.map((guess, index) => {
+                  return (
+                    <span
+                      key={`guess-${index}`}
+                      style={{ display: 'inline-block' }}>{guess}&nbsp;
+                    </span>)
+                })}
+              </> : <></>}
             </div>
           </Col>
         </Row> : <p>Loading...</p>
@@ -143,6 +212,12 @@ function Hangman() {
           <Button id='M' onClick={() => guess('M')}>M</Button>
         </> : <Button onClick={() => assignWords()}>New Game</Button>}
       </div>
+
+      {miss.length >= 5 && active ?
+        <div className="hangman-container">
+          <h4>Hint:</h4>
+          <p>{formatHint()}</p>
+        </div> : <></>}
     </Container >
   )
 
