@@ -360,7 +360,7 @@ function TicTacToe() {
         <Col xs={12} sm={12} md={6} lg={6}>
           <div className='ttt-container'>
             <h2>Record:</h2>
-            <p>{record[0]} W - {record[1]} L - {record[2]} T</p>
+            <p>{record[0]}W - {record[1]}L - {record[2]}T</p>
 
             {results !== '' ? <p>{results}</p> : <p>&nbsp;</p>}
 
