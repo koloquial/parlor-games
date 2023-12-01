@@ -5,7 +5,6 @@ function Splash() {
     <Container fluid>
       <Row>
         <Col>
-          <p>Sometimes I make games.</p>
         </Col>
       </Row>
     </Container>

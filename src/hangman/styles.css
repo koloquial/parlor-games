@@ -10,3 +10,14 @@
 .hangman-list{
   list-style-type: none;
 }
+
+.hangman-keyboard {
+}
+
+@media screen and (max-width: 800px) {
+  .hangman-keyboard {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: small !important;
+  }
+}
