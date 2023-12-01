@@ -45,8 +45,6 @@ function TicTacToe() {
     let col = defenseColumn();
     let diag = defenseDiagonal();
 
-    console.log('DECISIONS', row, col, diag)
-
     if (row !== 1) {
       checkSquare(row[0], row[1]);
 
@@ -258,8 +256,6 @@ function TicTacToe() {
       }
     }
   }
-
-
 
   const checkSquare = (x, y) => {
     if (error) {
