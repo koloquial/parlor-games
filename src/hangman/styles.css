@@ -1,0 +1,12 @@
+.hangman-title {
+  text-align: center;
+}
+
+.hangman-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.hangman-list{
+  list-style-type: none;
+}
