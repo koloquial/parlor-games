@@ -1,5 +1,5 @@
 import './style.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,6 +17,128 @@ function TicTacToe() {
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [results, setResults] = useState('');
+
+  useEffect(() => {
+    if (turn === 'O' && active) {
+      calculateDefense();
+    }
+  })
+
+  const calculateRandomMove = () => {
+    let valid = false;
+
+    let randX;
+    let randY;
+    while (!valid) {
+      randX = Math.floor(Math.random() * 3);
+      randY = Math.floor(Math.random() * 3);
+
+      if (grid[randX][randY] === '') {
+        valid = true;
+      }
+    }
+    checkSquare(randX, randY)
+  }
+
+  const calculateDefense = () => {
+    let row = defenseRow();
+    let col = defenseColumn();
+    let diag = defenseDiagonal();
+
+    console.log('DECISIONS', row, col, diag)
+
+    if (row !== 1) {
+      checkSquare(row[0], row[1]);
+
+    } else if (col !== 1) {
+      checkSquare(col[0], col[1]);
+
+    } else if (diag !== 1) {
+      checkSquare(diag[0], diag[1]);
+
+    } else {
+      calculateRandomMove();
+    }
+  }
+
+  const defenseRow = () => {
+    //check row 0
+    if (grid[0][0] === 'X' && grid[0][1] === 'X' && grid[0][2] === '') {
+      return [0, 2];
+    } else if (grid[0][0] === 'X' && grid[0][1] === '' && grid[0][2] === 'X') {
+      return [0, 1];
+    } else if (grid[0][0] === '' && grid[0][1] === 'X' && grid[0][2] === 'X') {
+      return [0, 0];
+
+      //check row 1
+    } else if (grid[1][0] === 'X' && grid[1][1] === 'X' && grid[1][2] === '') {
+      return [1, 2];
+    } else if (grid[1][0] === 'X' && grid[1][1] === '' && grid[1][2] === 'X') {
+      return [1, 1];
+    } else if (grid[1][0] === '' && grid[1][1] === 'X' && grid[1][2] === 'X') {
+      return [1, 0];
+
+      //check row 2
+    } else if (grid[2][0] === 'X' && grid[2][1] === 'X' && grid[2][2] === '') {
+      return [2, 2];
+    } else if (grid[2][0] === 'X' && grid[2][1] === '' && grid[2][2] === 'X') {
+      return [2, 1];
+    } else if (grid[2][0] === '' && grid[2][1] === 'X' && grid[2][2] === 'X') {
+      return [2, 0];
+    } else {
+      return 1;
+    }
+  }
+
+  const defenseColumn = () => {
+    //check column 0
+    if (grid[0][0] === 'X' && grid[1][0] === 'X' && grid[2][0] === '') {
+      return [2, 0];
+    } else if (grid[0][0] === 'X' && grid[1][0] === '' && grid[2][0] === 'X') {
+      return [1, 0];
+    } else if (grid[0][0] === '' && grid[1][0] === 'X' && grid[2][0] === 'X') {
+      return [0, 0];
+
+      //check column 1
+    } else if (grid[1][0] === 'X' && grid[1][1] === 'X' && grid[1][2] === '') {
+      return [1, 2];
+    } else if (grid[1][0] === 'X' && grid[1][1] === '' && grid[1][2] === 'X') {
+      return [1, 1];
+    } else if (grid[1][0] === '' && grid[1][1] === 'X' && grid[1][2] === 'X') {
+      return [1, 0];
+
+      // check column 2
+    } else if (grid[2][0] === 'X' && grid[2][1] === 'X' && grid[2][2] === '') {
+      return [2, 2];
+    } else if (grid[2][0] === 'X' && grid[2][1] === '' && grid[2][2] === 'X') {
+      return [2, 1];
+    } else if (grid[2][0] === '' && grid[2][1] === 'X' && grid[2][2] === 'X') {
+      return [2, 0];
+    } else {
+      return 1;
+    }
+  }
+
+  const defenseDiagonal = () => {
+    //check top down
+    if (grid[0][0] === 'X' && grid[1][1] === 'X' && grid[2][2] === '') {
+      return [2, 2];
+    } else if (grid[0][0] === 'X' && grid[1][1] === '' && grid[2][2] === 'X') {
+      return [1, 1];
+    } else if (grid[0][0] === '' && grid[1][1] === 'X' && grid[2][2] === 'X') {
+      return [0, 0];
+
+      //check down top
+    } else if (grid[2][0] === 'X' && grid[1][1] === 'X' && grid[0][2] === '') {
+      return [0, 2];
+    } else if (grid[2][0] === 'X' && grid[1][1] === '' && grid[0][2] === 'X') {
+      return [1, 1];
+    } else if (grid[2][0] === '' && grid[1][1] === 'X' && grid[0][2] === 'X') {
+      return [2, 0];
+    } else {
+      return 1;
+    }
+  }
 
   const checkSquareValue = (x, y) => {
     if (grid[x][y] === 'X') {
@@ -137,6 +259,8 @@ function TicTacToe() {
     }
   }
 
+
+
   const checkSquare = (x, y) => {
     if (error) {
       //remove error message
@@ -195,9 +319,15 @@ function TicTacToe() {
 
   return (
     <Container fluid>
-      <div class='ttt-title'>
+      <div className='ttt-title'>
         <h1>Tic-Tac-Toe</h1>
-        {!active ? <p>Click on New Game to get started.</p> : <p>&nbsp;</p>}
+        {!active ?
+          <p>Click on New Game to start.</p>
+          :
+          <p>
+            {turn === 'X' ? "It's your turn." : "It's the opponents turn."}
+          </p>
+        }
       </div>
       <Row>
         <Col xs={12} sm={12} md={6} lg={6}>
@@ -213,7 +343,7 @@ function TicTacToe() {
                             key={`square-${x}-${y}`}
                             className={grid[x][y] === '' && active ? 'ttt-square' : checkSquareValue(x, y)}
                             onClick={() => {
-                              if (active) {
+                              if (active && turn !== 'O') {
                                 checkSquare(x, y);
                               }
                             }}
@@ -236,10 +366,6 @@ function TicTacToe() {
             <h2>Record:</h2>
             <p>{record[0]} W - {record[1]} L - {record[2]} T</p>
 
-            {active ? <>
-              {turn === 'X' ? "It's your turn." : "It's the opponents turn."}
-            </> : <></>}
-
             {results !== '' ? <p>{results}</p> : <p>&nbsp;</p>}
 
             {active && error ? <p className='ttt-errorMsg'>{errorMsg}</p> : <p>&nbsp;</p>}
@@ -248,9 +374,7 @@ function TicTacToe() {
       </Row>
 
       <div className='ttt-container'>
-        {!active ? <>
-          <Button onClick={() => newGame()}>New Game</Button>
-        </> : <></>}
+        {!active ? <Button onClick={() => newGame()}>New Game</Button> : <></>}
       </div>
     </Container>
   )
