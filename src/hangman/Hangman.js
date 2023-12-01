@@ -192,6 +192,7 @@ function Hangman() {
       setShowResults(false);
       setRound(1);
       setUsedWords([]);
+      setPointsDB(0);
       getWordList();
     }
 
