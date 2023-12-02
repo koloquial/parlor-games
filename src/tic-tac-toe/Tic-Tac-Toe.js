@@ -20,9 +20,42 @@ function TicTacToe() {
 
   useEffect(() => {
     if (turn === 'O' && active) {
-      calculateDefense();
+      calculateMove();
     }
   })
+
+  const calculateMove = () => {
+    //calculate defense positions
+    //check row
+    let rowOption = defenseRow('X');
+    let columnOption = defenseColumn('X');
+    let diagonalOption = defenseDiagonal('X');
+
+    let strikeRowOption = defenseRow('O');
+    let strikeColumnOption = defenseColumn('O');
+    let strikeDiagonalOption = defenseDiagonal('O');
+
+    //calculate strike options
+    if (strikeRowOption) {
+      checkSquare(strikeRowOption[0], strikeRowOption[1])
+    } else if (strikeColumnOption) {
+      checkSquare(strikeColumnOption[0], strikeColumnOption[1])
+    } else if (strikeDiagonalOption) {
+      checkSquare(strikeDiagonalOption[0], strikeDiagonalOption[1])
+
+      //calculate defense options
+    } else if (rowOption) {
+      checkSquare(rowOption[0], rowOption[1])
+    } else if (columnOption) {
+      checkSquare(columnOption[0], columnOption[1])
+    } else if (diagonalOption) {
+      checkSquare(diagonalOption[0], diagonalOption[1])
+
+      //random move
+    } else {
+      calculateRandomMove();
+    }
+  }
 
   const calculateRandomMove = () => {
     let valid = false;
@@ -40,101 +73,86 @@ function TicTacToe() {
     checkSquare(randX, randY)
   }
 
-  const calculateDefense = () => {
-    let row = defenseRow();
-    let col = defenseColumn();
-    let diag = defenseDiagonal();
-
-    if (row !== 1) {
-      checkSquare(row[0], row[1]);
-
-    } else if (col !== 1) {
-      checkSquare(col[0], col[1]);
-
-    } else if (diag !== 1) {
-      checkSquare(diag[0], diag[1]);
-
-    } else {
-      calculateRandomMove();
-    }
-  }
-
-  const defenseRow = () => {
+  const defenseRow = (letter) => {
     //check row 0
-    if (grid[0][0] === 'X' && grid[0][1] === 'X' && grid[0][2] === '') {
+    if (grid[0][0] === letter && grid[0][1] === letter && grid[0][2] === '') {
       return [0, 2];
-    } else if (grid[0][0] === 'X' && grid[0][1] === '' && grid[0][2] === 'X') {
-      return [0, 1];
-    } else if (grid[0][0] === '' && grid[0][1] === 'X' && grid[0][2] === 'X') {
-      return [0, 0];
+    } else if (grid[0][0] === letter && grid[0][1] === '' && grid[0][2] === letter) {
+      return [0, 1]
+    } else if (grid[0][0] === '' && grid[0][1] === letter && grid[0][2] === letter) {
+      return [0, 0]
+    }
 
-      //check row 1
-    } else if (grid[1][0] === 'X' && grid[1][1] === 'X' && grid[1][2] === '') {
-      return [1, 2];
-    } else if (grid[1][0] === 'X' && grid[1][1] === '' && grid[1][2] === 'X') {
-      return [1, 1];
-    } else if (grid[1][0] === '' && grid[1][1] === 'X' && grid[1][2] === 'X') {
+    //check row 1
+    else if (grid[1][0] === letter && grid[1][1] === letter && grid[1][2] === '') {
       return [1, 0];
+    } else if (grid[1][0] === letter && grid[1][1] === '' && grid[1][2] === letter) {
+      return [1, 1];
+    } else if (grid[1][0] === '' && grid[1][1] === letter && grid[1][2] === letter) {
+      return [1, 0];
+    }
 
-      //check row 2
-    } else if (grid[2][0] === 'X' && grid[2][1] === 'X' && grid[2][2] === '') {
+    //check row 2
+    else if (grid[2][0] === letter && grid[2][1] === letter && grid[2][2] === '') {
       return [2, 2];
-    } else if (grid[2][0] === 'X' && grid[2][1] === '' && grid[2][2] === 'X') {
+    } else if (grid[2][0] === letter && grid[2][1] === '' && grid[2][2] === letter) {
       return [2, 1];
-    } else if (grid[2][0] === '' && grid[2][1] === 'X' && grid[2][2] === 'X') {
-      return [2, 0];
+    } else if (grid[2][0] === '' && grid[2][1] === letter && grid[2][2] === letter) {
+      return [2, 0]
     } else {
-      return 1;
+      return null;
     }
   }
 
-  const defenseColumn = () => {
+  const defenseColumn = (letter) => {
     //check column 0
-    if (grid[0][0] === 'X' && grid[1][0] === 'X' && grid[2][0] === '') {
+    if (grid[0][0] === letter && grid[1][0] === letter && grid[2][0] === '') {
       return [2, 0];
-    } else if (grid[0][0] === 'X' && grid[1][0] === '' && grid[2][0] === 'X') {
-      return [1, 0];
-    } else if (grid[0][0] === '' && grid[1][0] === 'X' && grid[2][0] === 'X') {
-      return [0, 0];
+    } else if (grid[0][0] === letter && grid[1][0] === '' && grid[2][0] === letter) {
+      return [1, 0]
+    } else if (grid[0][0] === '' && grid[1][0] === letter && grid[2][0] === letter) {
+      return [0, 0]
+    }
 
-      //check column 1
-    } else if (grid[1][0] === 'X' && grid[1][1] === 'X' && grid[1][2] === '') {
-      return [1, 2];
-    } else if (grid[1][0] === 'X' && grid[1][1] === '' && grid[1][2] === 'X') {
-      return [1, 1];
-    } else if (grid[1][0] === '' && grid[1][1] === 'X' && grid[1][2] === 'X') {
-      return [1, 0];
-
-      // check column 2
-    } else if (grid[2][0] === 'X' && grid[2][1] === 'X' && grid[2][2] === '') {
-      return [2, 2];
-    } else if (grid[2][0] === 'X' && grid[2][1] === '' && grid[2][2] === 'X') {
+    //check column 1
+    else if (grid[0][1] === letter && grid[1][1] === letter && grid[2][1] === '') {
       return [2, 1];
-    } else if (grid[2][0] === '' && grid[2][1] === 'X' && grid[2][2] === 'X') {
-      return [2, 0];
+    } else if (grid[0][1] === letter && grid[1][1] === '' && grid[2][1] === letter) {
+      return [1, 1];
+    } else if (grid[0][1] === '' && grid[1][1] === letter && grid[2][1] === letter) {
+      return [0, 1];
+    }
+
+    //check column 2
+    else if (grid[0][2] === letter && grid[1][2] === letter && grid[2][2] === '') {
+      return [2, 2];
+    } else if (grid[0][2] === letter && grid[1][2] === '' && grid[2][2] === letter) {
+      return [1, 2];
+    } else if (grid[0][2] === '' && grid[1][2] === letter && grid[2][2] === letter) {
+      return [0, 2]
     } else {
-      return 1;
+      return null;
     }
   }
 
-  const defenseDiagonal = () => {
-    //check top down
-    if (grid[0][0] === 'X' && grid[1][1] === 'X' && grid[2][2] === '') {
+  const defenseDiagonal = (letter) => {
+    //check diag 1
+    if (grid[0][0] === letter && grid[1][1] === letter && grid[2][2] === '') {
       return [2, 2];
-    } else if (grid[0][0] === 'X' && grid[1][1] === '' && grid[2][2] === 'X') {
-      return [1, 1];
-    } else if (grid[0][0] === '' && grid[1][1] === 'X' && grid[2][2] === 'X') {
-      return [0, 0];
-
-      //check down top
-    } else if (grid[2][0] === 'X' && grid[1][1] === 'X' && grid[0][2] === '') {
-      return [0, 2];
-    } else if (grid[2][0] === 'X' && grid[1][1] === '' && grid[0][2] === 'X') {
-      return [1, 1];
-    } else if (grid[2][0] === '' && grid[1][1] === 'X' && grid[0][2] === 'X') {
-      return [2, 0];
+    } else if (grid[0][0] === letter && grid[1][1] === '' && grid[2][2] === letter) {
+      return [1, 1]
+    } else if (grid[0][0] === '' && grid[1][1] === letter && grid[2][2] === letter) {
+      return [0, 0]
+    }
+    //check diag 2
+    else if (grid[2][0] === letter && grid[1][1] === letter && grid[0][2] === '') {
+      return [0, 2]
+    } else if (grid[2][0] === letter && grid[1][1] === '' && grid[0][2] === letter) {
+      return [1, 1]
+    } else if (grid[2][0] === '' && grid[1][1] === letter && grid[0][2] === letter) {
+      return [2, 0]
     } else {
-      return 1;
+      return null;
     }
   }
 
