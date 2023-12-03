@@ -84,7 +84,7 @@ function TicTacToe() {
 
     //check row 1
     else if (grid[1][0] === letter && grid[1][1] === letter && grid[1][2] === '') {
-      return [1, 0];
+      return [1, 2];
     } else if (grid[1][0] === letter && grid[1][1] === '' && grid[1][2] === letter) {
       return [1, 1];
     } else if (grid[1][0] === '' && grid[1][1] === letter && grid[1][2] === letter) {
