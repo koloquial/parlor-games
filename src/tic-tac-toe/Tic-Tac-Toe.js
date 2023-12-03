@@ -50,29 +50,9 @@ function TicTacToe() {
     } else if (diagonalOption) {
       checkSquare(diagonalOption[0], diagonalOption[1])
 
-      //if two x's are on board and middle square available, take it
-    } else if (countMoves()) {
-      checkSquare(1, 1);
 
-      //generate random move
     } else {
       calculateRandomMove();
-    }
-  }
-
-  const countMoves = () => {
-    let counter = 0;
-    for (let i = 0; i < grid.length; i++) {
-      for (let j = 0; j < grid[i].length; j++) {
-        if (grid[i][j] === 'X') {
-          counter++;
-        }
-      }
-    }
-    if (counter >= 2 && grid[1][1] === '') {
-      return true;
-    } else {
-      return false;
     }
   }
 
