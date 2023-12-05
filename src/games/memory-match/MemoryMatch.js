@@ -76,7 +76,9 @@ function MemoryMatch() {
   const [record, setRecord] = useState('');
   const [time, setTime] = useState(0);
   const [cardList, setCardList] = useState([]);
-  const [selectCard, setSelectCard] = useState([])
+  const [selectCard, setSelectCard] = useState([]);
+  const [force, setForce] = useState(['', '']);
+  const [matched, setMatched] = useState([]);
 
   useEffect(() => {
     if (active) {
@@ -89,42 +91,51 @@ function MemoryMatch() {
   ]
 
   function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-
-    while (currentIndex > 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
     }
-
     return array;
   }
 
   function newGame() {
     let list = [];
     let valid = false;
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 12; i++) {
       valid = false;
       while (!valid) {
         let random = Math.floor(Math.random() * icons.length);
         if (!list.includes(icons[random])) {
-          list.push(icons[random]);
-          list.push(icons[random]);
+          list.push(icons[random], icons[random]);
           valid = true;
         }
       }
     }
-    list = shuffle(list);
-    setCardList(list);
+    let shuffled = shuffle(list);
+    setCardList(shuffled);
     setActive(true);
   }
 
   function formatTime(elapsed) {
     let minutes = Math.floor(elapsed / 60);
     let seconds = elapsed % 60;
-
     return `${minutes}:${seconds < 10 ? 0 : ''}${seconds}`;
+  }
+
+  function forceFlip(cardId1, cardId2) {
+    setForce([cardId1, cardId2]);
+  }
+
+  function checkWin() {
+    setTimeout(() => {
+      if (matched.length === 24) {
+        console.log('win')
+        alert('win!')
+        setActive(false);
+      }
+    }, 100)
   }
 
   return (
@@ -146,9 +157,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
@@ -164,9 +183,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
@@ -182,9 +209,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
@@ -200,9 +235,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
@@ -218,9 +261,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
@@ -236,9 +287,17 @@ function MemoryMatch() {
                 return (
                   <Col key={`${card}-${index}`}>
                     <FlipCard
+                      id={index}
                       Icon={card}
                       selectCard={selectCard}
-                      setSelectCard={setSelectCard} />
+                      setSelectCard={setSelectCard}
+                      forceFlip={forceFlip}
+                      force={force}
+                      setForce={setForce}
+                      matched={matched}
+                      setMatched={setMatched}
+                      checkWin={checkWin}
+                    />
                   </Col>
                 )
               } else {
