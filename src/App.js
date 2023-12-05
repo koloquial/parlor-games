@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navigation from "./navigation";
-import Splash from "./splash";
-import TicTacToe from "./tic-tac-toe";
-import Hangman from './hangman';
+import Navigation from "./components/Navigation";
+import Splash from "./screens/splash";
+import TicTacToe from "./games/tic-tac-toe";
+import Hangman from './games/hangman';
+import MemoryMatch from './games/memory-match';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path='/' element={<Splash />} />
           <Route exact path='/tic-tac-toe' element={<TicTacToe />} />
           <Route exact path='/hangman' element={<Hangman />} />
+          <Route exact path='/memory-match' element={<MemoryMatch />} />
         </Routes>
       </Router>
     </div>

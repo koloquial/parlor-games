@@ -1,0 +1,11 @@
+.flip-card-icon{
+  font-size: xx-large;
+}
+
+.flip-card-front{
+  cursor: pointer;
+}
+
+.flip-card-back{
+  cursor: not-allowed;
+}

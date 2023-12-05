@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function BasicExample() {
+function Navigation() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -15,6 +15,7 @@ function BasicExample() {
             <NavDropdown title="Games" id="basic-nav-dropdown">
               <NavDropdown.Item href="/tic-tac-toe">Tic-Tac-Toe</NavDropdown.Item>
               <NavDropdown.Item href="/hangman">Hangman</NavDropdown.Item>
+              <NavDropdown.Item href="/memory-match">Memory Match</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -23,4 +24,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Navigation;

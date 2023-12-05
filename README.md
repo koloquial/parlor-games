@@ -11,6 +11,8 @@ https://parlor-games.vercel.app/
 
 - React Router
 - Bootstrap
+- react-icons
+- react-card-flip (Memory Match)
 
 #### Hangman APIs:
 
