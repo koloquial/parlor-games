@@ -34,8 +34,8 @@ function Hangman() {
     }
   }, [loading])
 
-  function fetchHint() {
-    let temp = mysteryWord.join('').toLowerCase();
+  function fetchHint(word) {
+    let temp = word.toLowerCase();
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${temp}`)
       .then(response => response.json())
       .then(json => setHint(json))
@@ -66,6 +66,9 @@ function Hangman() {
 
     //set randomWordArray to mysteryWord
     setMysteryWord(randomWordArray);
+
+    //fetch hint
+    fetchHint(randomWord);
 
     //add mystery word to used words
     let copyUsedWords = [...usedWords];
@@ -198,9 +201,6 @@ function Hangman() {
       if (round === 10) {
         setEndGame(true);
       }
-
-    } else if (array.length === 4) {
-      fetchHint();
     }
   }
 
@@ -253,9 +253,9 @@ function Hangman() {
       </div>
 
       <Row>
-        <Col xs={12} sm={12} md={6} lg={6}>
+        <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
-            <div className="hangman-container">
+            <div className="hangman-container hangman-box">
               <h3>Mystery Word</h3>
               {dashes ? <div id='dash-container'>
                 {dashes.map((letter, index) => {
@@ -264,14 +264,20 @@ function Hangman() {
               </div> : <></>}
             </div> : <></>}
         </Col>
-        <Col xs={12} sm={12} md={6} lg={6}>
+        <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
-            <div className="hangman-container">
+            <div className="hangman-container hangman-box">
               <h3>Guesses</h3>
               {guesses.map((letter, index) => {
                 return <span key={`guesses-${index}`}>{letter}&nbsp;</span>
               })}
             </div> : <></>}
+        </Col>
+        <Col xs={12} sm={12} md={4} lg={4}>
+          {hint ? <div className="hangman-container hangman-box">
+            <h3>Hint</h3>
+            {formatHint()}
+          </div> : <></>}
         </Col>
       </Row>
       <br />
@@ -307,11 +313,6 @@ function Hangman() {
           <Button id='N' onClick={() => guess('N')}>N</Button>
           <Button id='M' onClick={() => guess('M')}>M</Button>
         </div> : <></>}
-
-      {hint && !endRound ? <div className="hangman-container">
-        <h3>Hint:</h3>
-        {formatHint()}
-      </div> : <></>}
 
       {endRound ? <div className="hangman-container">
         {result}

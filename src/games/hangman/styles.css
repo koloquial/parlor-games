@@ -10,3 +10,31 @@
 .hangman-list{
   list-style-type: none;
 }
+
+.hangman-box{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+}
+
+@media (max-width: 408px) {
+  Button{
+    width: 30px;
+    height: 30px;
+    padding: 1px !important;
+    font-size: small !important;
+  }
+}
+
+@media (max-width: 344px) {
+  Button {
+    width: 20px;
+    height: 20px;
+    padding: 1px !important;
+    font-size: small !important;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+  }
+}
