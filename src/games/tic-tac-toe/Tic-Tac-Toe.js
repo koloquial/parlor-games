@@ -333,7 +333,7 @@ function TicTacToe() {
   return (
     <Container fluid>
       <div className='ttt-title'>
-        <h1>Tic-Tac-Toe</h1>
+        <h2>Tic-Tac-Toe</h2>
         {!active ?
           <p>Click on New Game to start.</p>
           :
@@ -376,7 +376,7 @@ function TicTacToe() {
         </Col>
         <Col xs={12} sm={12} md={6} lg={6}>
           <div className='ttt-container'>
-            <h2>Record:</h2>
+            <h5>Record:</h5>
             <p>{record[0]}W - {record[1]}L - {record[2]}T</p>
 
             {results !== '' ? <p>{results}</p> : <p>&nbsp;</p>}

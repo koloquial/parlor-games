@@ -139,7 +139,7 @@ function MemoryMatch() {
   return (
     <Container fluid>
       <div className="memory-title">
-        <h1>Memory Match</h1>
+        <h2>Memory Match</h2>
       </div>
 
       <div className='memory-container'>

@@ -19,8 +19,24 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
 }
 
+.hangman-keyboard {
+  background-color: white;
+  border: 0;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+}
+
+.hangman-keyboard:hover{
+  background-color: lightgreen;
+}
+
+.hangman-keyboard:disabled{
+  color: black;
+  background-color: darkgray;
+}
+
 @media (max-width: 408px) {
-  Button{
+  .hangman-keyboard{
     width: 30px;
     height: 30px;
     padding: 1px !important;
@@ -29,7 +45,7 @@
 }
 
 @media (max-width: 344px) {
-  Button {
+  .hangman-keyboard {
     width: 20px;
     height: 20px;
     padding: 1px !important;

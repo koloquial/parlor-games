@@ -244,11 +244,10 @@ function Hangman() {
   return (
     <Container fluid>
       <div className="hangman-title">
-        <h1>Hangman</h1>
+        <h2>Hangman</h2>
         {!active ? <p>Click new game to start.</p>
           : <p>
-            Round: {round} / 10 <br />
-            Points: {totalPoints}
+            <b>Round:</b> {round} / 10 || <b>Points:</b> {totalPoints}
           </p>}
       </div>
 
@@ -256,7 +255,7 @@ function Hangman() {
         <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
             <div className="hangman-container hangman-box">
-              <h3>Mystery Word</h3>
+              <h5>Mystery Word</h5>
               {dashes ? <div id='dash-container'>
                 {dashes.map((letter, index) => {
                   return <span key={`dashes-${index}`}>{letter}&nbsp;</span>
@@ -267,7 +266,7 @@ function Hangman() {
         <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
             <div className="hangman-container hangman-box">
-              <h3>Guesses</h3>
+              <h5>Guesses</h5>
               {guesses.map((letter, index) => {
                 return <span key={`guesses-${index}`}>{letter}&nbsp;</span>
               })}
@@ -275,7 +274,7 @@ function Hangman() {
         </Col>
         <Col xs={12} sm={12} md={4} lg={4}>
           {hint ? <div className="hangman-container hangman-box">
-            <h3>Hint</h3>
+            <h5>Hint</h5>
             {formatHint()}
           </div> : <></>}
         </Col>
@@ -284,34 +283,34 @@ function Hangman() {
 
       {active && !endGame ?
         <div id='hangman-keyboard' className="hangman-container">
-          <Button id='Q' onClick={() => guess('Q')}>Q</Button>
-          <Button id='W' onClick={() => guess('W')}>W</Button>
-          <Button id='E' onClick={() => guess('E')}>E</Button>
-          <Button id='R' onClick={() => guess('R')}>R</Button>
-          <Button id='T' onClick={() => guess('T')}>T</Button>
-          <Button id='Y' onClick={() => guess('Y')}>Y</Button>
-          <Button id='U' onClick={() => guess('U')}>U</Button>
-          <Button id='I' onClick={() => guess('I')}>I</Button>
-          <Button id='O' onClick={() => guess('O')}>O</Button>
-          <Button id='P' onClick={() => guess('P')}>P</Button>
+          <Button id='Q' className="hangman-keyboard" onClick={() => guess('Q')}>Q</Button>
+          <Button id='W' className="hangman-keyboard" onClick={() => guess('W')}>W</Button>
+          <Button id='E' className="hangman-keyboard" onClick={() => guess('E')}>E</Button>
+          <Button id='R' className="hangman-keyboard" onClick={() => guess('R')}>R</Button>
+          <Button id='T' className="hangman-keyboard" onClick={() => guess('T')}>T</Button>
+          <Button id='Y' className="hangman-keyboard" onClick={() => guess('Y')}>Y</Button>
+          <Button id='U' className="hangman-keyboard" onClick={() => guess('U')}>U</Button>
+          <Button id='I' className="hangman-keyboard" onClick={() => guess('I')}>I</Button>
+          <Button id='O' className="hangman-keyboard" onClick={() => guess('O')}>O</Button>
+          <Button id='P' className="hangman-keyboard" onClick={() => guess('P')}>P</Button>
           <br />
-          <Button id='A' onClick={() => guess('A')}>A</Button>
-          <Button id='S' onClick={() => guess('S')}>S</Button>
-          <Button id='D' onClick={() => guess('D')}>D</Button>
-          <Button id='F' onClick={() => guess('F')}>F</Button>
-          <Button id='G' onClick={() => guess('G')}>G</Button>
-          <Button id='H' onClick={() => guess('H')}>H</Button>
-          <Button id='J' onClick={() => guess('J')}>J</Button>
-          <Button id='K' onClick={() => guess('K')}>K</Button>
-          <Button id='L' onClick={() => guess('L')}>L</Button>
+          <Button id='A' className="hangman-keyboard" onClick={() => guess('A')}>A</Button>
+          <Button id='S' className="hangman-keyboard" onClick={() => guess('S')}>S</Button>
+          <Button id='D' className="hangman-keyboard" onClick={() => guess('D')}>D</Button>
+          <Button id='F' className="hangman-keyboard" onClick={() => guess('F')}>F</Button>
+          <Button id='G' className="hangman-keyboard" onClick={() => guess('G')}>G</Button>
+          <Button id='H' className="hangman-keyboard" onClick={() => guess('H')}>H</Button>
+          <Button id='J' className="hangman-keyboard" onClick={() => guess('J')}>J</Button>
+          <Button id='K' className="hangman-keyboard" onClick={() => guess('K')}>K</Button>
+          <Button id='L' className="hangman-keyboard" onClick={() => guess('L')}>L</Button>
           <br />
-          <Button id='Z' onClick={() => guess('Z')}>Z</Button>
-          <Button id='X' onClick={() => guess('X')}>X</Button>
-          <Button id='C' onClick={() => guess('C')}>C</Button>
-          <Button id='V' onClick={() => guess('V')}>V</Button>
-          <Button id='B' onClick={() => guess('B')}>B</Button>
-          <Button id='N' onClick={() => guess('N')}>N</Button>
-          <Button id='M' onClick={() => guess('M')}>M</Button>
+          <Button id='Z' className="hangman-keyboard" onClick={() => guess('Z')}>Z</Button>
+          <Button id='X' className="hangman-keyboard" onClick={() => guess('X')}>X</Button>
+          <Button id='C' className="hangman-keyboard" onClick={() => guess('C')}>C</Button>
+          <Button id='V' className="hangman-keyboard" onClick={() => guess('V')}>V</Button>
+          <Button id='B' className="hangman-keyboard" onClick={() => guess('B')}>B</Button>
+          <Button id='N' className="hangman-keyboard" onClick={() => guess('N')}>N</Button>
+          <Button id='M' className="hangman-keyboard" onClick={() => guess('M')}>M</Button>
         </div> : <></>}
 
       {endRound ? <div className="hangman-container">
