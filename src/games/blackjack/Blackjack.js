@@ -155,7 +155,16 @@ function Blackjack() {
         {active && currentHand ?
           <div className="blackjack-container">
 
-            {pot !== 0 ? <p>Dealer Hand Total: {sumOfCards('dealer')}</p> : <p>&nbsp;</p>}
+            {pot !== 0 ?
+              <>
+                <p>
+                  <TbSum />
+
+                  {sumOfCards('player')[0]}
+
+                  {sumOfCards('player')[1] < 22 && sumOfCards('player')[0] !== sumOfCards('player')[1] ? ` or ${sumOfCards('player')[1]}` : ''}
+                </p>
+              </> : <></>}
             {dealerHand.map((value, index) => {
               return (
                 <div style={{ display: 'inline-block', marginRight: '5px' }}>
