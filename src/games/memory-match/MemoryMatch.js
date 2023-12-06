@@ -140,10 +140,9 @@ function MemoryMatch() {
         <h1>Memory Match</h1>
       </div>
 
-      {active ?
-        <div className='memory-container'>
-          <BsClock /> {formatTime(time)}
-        </div> : <></>}
+      <div className='memory-container'>
+        {active ? <><BsClock /> {formatTime(time)}</> : <p>Click new game to start.</p>}
+      </div>
 
       {active ?
         <div className='memory-container'>
