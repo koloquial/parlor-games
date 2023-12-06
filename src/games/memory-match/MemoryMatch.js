@@ -73,7 +73,6 @@ import { GiDaisy } from "react-icons/gi";
 
 function MemoryMatch() {
   const [active, setActive] = useState(false);
-  const [record, setRecord] = useState('');
   const [time, setTime] = useState(0);
   const [cardList, setCardList] = useState([]);
   const [selectCard, setSelectCard] = useState([]);
@@ -119,6 +118,7 @@ function MemoryMatch() {
     setCardList(shuffled);
     setActive(true);
     setCurrentGame(true);
+    setMatched([]);
   }
 
   function formatTime(elapsed) {
