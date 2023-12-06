@@ -21,6 +21,10 @@ function PlayingCard({ value, owner, revealDealer, cardIndex, deal }) {
     }
   }, [deal])
 
+  useEffect(() => {
+    setTimeout(() => setIsFlipped(true), 500);
+  }, [revealDealer])
+
   return (
     <div>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">

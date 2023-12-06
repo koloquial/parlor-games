@@ -109,21 +109,29 @@ function Blackjack() {
   }
 
   function hit(player) {
+    //draw card
+    let copyDeck = [...deck];
+    let tempCard = copyDeck.shift();
+    console.log('temp card', tempCard);
+
+    //set new deck
+    setDeck(copyDeck);
+
+    //put tempCard into player hand
+    let copyHand = [...playerHand];
+    copyHand.push(tempCard);
+
     if (player === 'player') {
-      //draw card
-      let copyDeck = [...deck];
-      let tempCard = copyDeck.shift();
-      console.log('temp card', tempCard);
-
-      //set new deck
-      setDeck(copyDeck);
-
-      //put tempCard into player hand
-      let copyHand = [...playerHand];
-      copyHand.push(tempCard);
+      if (sumOfCards(copyHand)[0] > 21) {
+        setTurn('dealer');
+      }
       setPlayerHand(copyHand);
     } else {
-
+      setRevealDealer(true)
+      if (sumOfCards(copyHand)[0] > 21) {
+        setTurn('');
+      }
+      setDealerHand(copyHand);
     }
   }
 
