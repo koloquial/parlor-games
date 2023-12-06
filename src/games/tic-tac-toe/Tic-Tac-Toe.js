@@ -17,6 +17,7 @@ function TicTacToe() {
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [results, setResults] = useState('');
+  const [inGame, setInGame] = useState(false);
 
   useEffect(() => {
     if (turn === 'O' && active) {
@@ -328,6 +329,10 @@ function TicTacToe() {
 
     //set game active
     setActive(true);
+
+    if (!inGame) {
+      setInGame(true);
+    }
   }
 
   return (
@@ -342,51 +347,56 @@ function TicTacToe() {
           </p>
         }
       </div>
-      <Row>
-        <Col xs={12} sm={12} md={6} lg={6}>
-          <div className='ttt-container'>
-            <table className='ttt-table'>
-              <tbody>
-                {grid.map((row, x) => {
-                  return (
-                    <tr key={`row-${x}`} className='ttt-row'>
-                      {row.map((square, y) => {
-                        return (
-                          <td
-                            key={`square-${x}-${y}`}
-                            className={grid[x][y] === '' && active ? 'ttt-square' : checkSquareValue(x, y)}
-                            onClick={() => {
-                              if (active && turn !== 'O') {
-                                checkSquare(x, y);
-                              }
-                            }}
-                          >
-                            <div className='square-content'>
-                              {square}
-                            </div>
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </Col>
-        <Col xs={12} sm={12} md={6} lg={6}>
-          <div className='ttt-container'>
-            <h5>Record:</h5>
-            <p>{record[0]}W - {record[1]}L - {record[2]}T</p>
+      {inGame ?
+        <>
+          <Row>
+            <Col xs={12} sm={12} md={6} lg={6}>
+              <div className='ttt-container'>
+                <table className='ttt-table'>
+                  <tbody>
+                    {grid.map((row, x) => {
+                      return (
+                        <tr key={`row-${x}`} className='ttt-row'>
+                          {row.map((square, y) => {
+                            return (
+                              <td
+                                key={`square-${x}-${y}`}
+                                className={grid[x][y] === '' && active ? 'ttt-square' : checkSquareValue(x, y)}
+                                onClick={() => {
+                                  if (active && turn !== 'O') {
+                                    checkSquare(x, y);
+                                  }
+                                }}
+                              >
+                                <div className='square-content'>
+                                  {square}
+                                </div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={6}>
+              <div className='ttt-container'>
+                <h5>Record:</h5>
+                <p>{record[0]}W - {record[1]}L - {record[2]}T</p>
 
-            {results !== '' ? <p>{results}</p> : <p>&nbsp;</p>}
+                {results !== '' ? <p>{results}</p> : <p>&nbsp;</p>}
 
-            {active && error ? <p className='ttt-errorMsg'>{errorMsg}</p> : <p>&nbsp;</p>}
-          </div>
-        </Col>
-      </Row>
+                {active && error ? <p className='ttt-errorMsg'>{errorMsg}</p> : <p>&nbsp;</p>}
+              </div>
+            </Col>
+          </Row>
+        </> : <></>}
+
 
       <div className='ttt-container'>
+        <br />
         {!active ? <Button onClick={() => newGame()}>New Game</Button> : <></>}
       </div>
     </Container>

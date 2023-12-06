@@ -115,6 +115,7 @@ function MemoryMatch() {
       }
     }
     let shuffled = shuffle(list);
+    setTime(0);
     setCardList(shuffled);
     setActive(true);
     setCurrentGame(true);
@@ -304,10 +305,14 @@ function MemoryMatch() {
           </Row>
         </div> : <></>}
 
-      {active && !currentGame ? <div className='memory-container'>Round finished!</div> : <></>}
+      {active && !currentGame ? <div className='memory-container'>
+        Round finished! <br />
+        <Button onClick={() => newGame()}>New Game</Button>
+      </div> : <></>}
 
       {!active ?
         <div className="memory-container">
+          <br />
           <Button onClick={() => newGame()}>New Game</Button>
         </div> : <></>}
 
