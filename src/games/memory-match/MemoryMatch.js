@@ -128,14 +128,10 @@ function MemoryMatch() {
     setForce([cardId1, cardId2]);
   }
 
-  function checkWin() {
-    setTimeout(() => {
-      if (matched.length === 24) {
-        console.log('win')
-        alert('win!')
-        setActive(false);
-      }
-    }, 100)
+  function checkWin(array) {
+    if (array.length === 24) {
+      alert('win!');
+    }
   }
 
   return (

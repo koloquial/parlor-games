@@ -24,14 +24,15 @@ function FlipCard({ id, Icon, selectCard, setSelectCard, forceFlip, force, setFo
 
       //flip card
       setIsFlipped(true);
+
+      //check if there are two cards selected
+      if (copySelectCard.length === 2) {
+        //two cards selected
+        //check if they match
+        checkMatch(copySelectCard);
+      }
     }
 
-    //check if there are two cards selected
-    if (copySelectCard.length === 2) {
-      //two cards selected
-      //check if they match
-      checkMatch(copySelectCard);
-    }
   }
 
   function checkMatch(array) {
@@ -43,7 +44,7 @@ function FlipCard({ id, Icon, selectCard, setSelectCard, forceFlip, force, setFo
       copyMatched.push(array[0].id, array[1].id);
       setMatched(copyMatched);
       setSelectCard([]);
-      checkWin();
+      checkWin(copyMatched);
     } else {
       //cards dont match
       console.log('cards dont match');
