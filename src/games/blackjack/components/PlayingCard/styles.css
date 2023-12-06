@@ -1,0 +1,54 @@
+.playing-card-front{
+  display: inline-block;
+  background: lightblue;
+  background:
+    linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, .8) 75%) 0 0,
+    linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, .8) 75%) 0 0,
+    linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, .8) 75%) 7px -15px,
+    linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, .8) 75%) 7px -15px,
+    lightblue;
+  background-size: 15px 30px;
+  border: 5px solid white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+  height: 100px;
+  width: 75px;
+  vertical-align: top;
+}
+
+.playing-card-back{
+    display: inline-block;
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+    height: 100px;
+    width: 75px;
+    padding-top: 22px;
+    vertical-align: top;
+}
+
+.playing-value-top{
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+}
+
+.playing-value-bottom{
+    display: inline-block;
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    rotate: 180deg;
+}
+
+.playing-value-suite{
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  font-size: xx-large;
+  text-align: center;
+  width: 100%;
+}
+
+.red{
+  color: red;
+}

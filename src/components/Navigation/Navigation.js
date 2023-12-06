@@ -16,6 +16,7 @@ function Navigation() {
               <NavDropdown.Item href="/tic-tac-toe">Tic-Tac-Toe</NavDropdown.Item>
               <NavDropdown.Item href="/hangman">Hangman</NavDropdown.Item>
               <NavDropdown.Item href="/memory-match">Memory Match</NavDropdown.Item>
+              <NavDropdown.Item href="/blackjack">Blackjack</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
