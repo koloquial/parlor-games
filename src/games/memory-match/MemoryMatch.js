@@ -79,9 +79,10 @@ function MemoryMatch() {
   const [selectCard, setSelectCard] = useState([]);
   const [force, setForce] = useState(['', '']);
   const [matched, setMatched] = useState([]);
+  const [currentGame, setCurrentGame] = useState(false);
 
   useEffect(() => {
-    if (active) {
+    if (currentGame) {
       setTimeout(() => setTime(time + 1), 1000);
     }
   })
@@ -116,6 +117,7 @@ function MemoryMatch() {
     let shuffled = shuffle(list);
     setCardList(shuffled);
     setActive(true);
+    setCurrentGame(true);
   }
 
   function formatTime(elapsed) {
@@ -130,7 +132,7 @@ function MemoryMatch() {
 
   function checkWin(array) {
     if (array.length === 24) {
-      alert('win!');
+      setCurrentGame(false);
     }
   }
 
@@ -301,6 +303,8 @@ function MemoryMatch() {
             })}
           </Row>
         </div> : <></>}
+
+      {active && !currentGame ? <div className='memory-container'>Round finished!</div> : <></>}
 
       {!active ?
         <div className="memory-container">

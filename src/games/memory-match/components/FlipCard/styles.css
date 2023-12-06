@@ -4,8 +4,21 @@
 
 .flip-card-front{
   cursor: pointer;
+  border: 0;
 }
 
 .flip-card-back{
   cursor: not-allowed;
+}
+
+.memory-card{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px, rgba(0, 0, 0, 0.23) 0px 2px 5px, inset 0 0 1px black;
+}
+
+.memory-card:hover{
+  background-color: lightgreen;
+}
+
+.memory-card-matched{
+  background-color: lightblue;
 }

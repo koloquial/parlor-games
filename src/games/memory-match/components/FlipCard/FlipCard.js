@@ -32,7 +32,6 @@ function FlipCard({ id, Icon, selectCard, setSelectCard, forceFlip, force, setFo
         checkMatch(copySelectCard);
       }
     }
-
   }
 
   function checkMatch(array) {
@@ -48,8 +47,8 @@ function FlipCard({ id, Icon, selectCard, setSelectCard, forceFlip, force, setFo
     } else {
       //cards dont match
       console.log('cards dont match');
-      //flip cards back over after a 1.2 secs
-      setTimeout(() => forceFlip(array[0].id, array[1].id), 1200);
+      //flip cards back over after one second
+      setTimeout(() => forceFlip(array[0].id, array[1].id), 1000);
     }
   }
 
@@ -67,11 +66,11 @@ function FlipCard({ id, Icon, selectCard, setSelectCard, forceFlip, force, setFo
   return (
     <div id={id}>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-        <Card className='flip-card-front' onClick={handleFlip}>
+        <Card className='flip-card-front memory-card' onClick={handleFlip}>
           <div className='flip-card-icon'>&nbsp;</div>
         </Card>
 
-        <Card className='flip-card-back'>
+        <Card className={matched.includes(id) ? 'flip-card-back memory-card-matched' : 'flip-card-back'}>
           <div className="flip-card-icon"><Icon /></div>
         </Card>
       </ReactCardFlip>
