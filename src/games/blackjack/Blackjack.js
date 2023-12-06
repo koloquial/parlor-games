@@ -86,7 +86,6 @@ function Blackjack() {
     let aceCounter = 0;
 
     calcHand.forEach(val => {
-      console.log('val', val)
       switch (val[0]) {
         case 'K': sum1 += 10; break;
         case 'Q': sum1 += 10; break;
@@ -141,11 +140,23 @@ function Blackjack() {
     moneyTemp -= bet;
     setMoney(moneyTemp);
     setDeal(true);
-    setBet(1);
   }
 
   function handleRangeBet(event) {
     setBet(event.target.value);
+  }
+
+  function double() {
+    if (bet > money) {
+      //cannot double down
+    } else {
+      let newBet = Number(pot) + Number(bet);
+      setPot(newBet);
+      setMoney(money - bet);
+      hit('player');
+      setTurn('deler');
+      setRevealDealer(true);
+    }
   }
 
   return (
@@ -156,15 +167,14 @@ function Blackjack() {
           <div className="blackjack-container">
 
             {pot !== 0 ?
-              <>
-                <p>
-                  <TbSum />
+              <p>
+                <TbSum />
 
-                  {sumOfCards('player')[0]}
+                {sumOfCards('player')[0]}
 
-                  {sumOfCards('player')[1] < 22 && sumOfCards('player')[0] !== sumOfCards('player')[1] ? ` or ${sumOfCards('player')[1]}` : ''}
-                </p>
-              </> : <></>}
+                {sumOfCards('player')[1] < 22 && sumOfCards('player')[0] !== sumOfCards('player')[1] ? ` or ${sumOfCards('player')[1]}` : ''}
+              </p> : <p><TbSum /> ?</p>}
+
             {dealerHand.map((value, index) => {
               return (
                 <div style={{ display: 'inline-block', marginRight: '5px' }}>
@@ -217,7 +227,7 @@ function Blackjack() {
           <>
             <Button onClick={() => hit('player')}>Hit</Button>
             {playerHand.length === 2 && playerHand[0][0] === playerHand[1][0] ? <Button>Split</Button> : <></>}
-            {playerHand.length === 2 ? <Button>Double</Button> : <></>}
+            {playerHand.length === 2 ? <Button onClick={() => double()}>Double</Button> : <></>}
             <Button>Stay</Button>
           </> : <></>}
 

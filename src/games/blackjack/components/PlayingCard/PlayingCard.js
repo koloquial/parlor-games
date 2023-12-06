@@ -22,7 +22,9 @@ function PlayingCard({ value, owner, revealDealer, cardIndex, deal }) {
   }, [deal])
 
   useEffect(() => {
-    setTimeout(() => setIsFlipped(true), 500);
+    if (revealDealer) {
+      setTimeout(() => setIsFlipped(true), 500);
+    }
   }, [revealDealer])
 
   return (
