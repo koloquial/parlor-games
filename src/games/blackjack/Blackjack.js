@@ -159,6 +159,11 @@ function Blackjack() {
     }
   }
 
+  function stay() {
+    setTurn('dealer');
+    setRevealDealer(true);
+  }
+
   return (
     <Container fluid>
       <div className='blackjack-title'>
@@ -228,7 +233,7 @@ function Blackjack() {
             <Button onClick={() => hit('player')}>Hit</Button>
             {playerHand.length === 2 && playerHand[0][0] === playerHand[1][0] ? <Button>Split</Button> : <></>}
             {playerHand.length === 2 ? <Button onClick={() => double()}>Double</Button> : <></>}
-            <Button>Stay</Button>
+            <Button onClick={() => stay()}>Stay</Button>
           </> : <></>}
 
         {!active ?
