@@ -29,6 +29,12 @@ function Blackjack() {
     'A♣', 'K♣', 'Q♣', 'J♣', 'X♣', '9♣', '8♣', '7♣', '6♣', '5♣', '4♣', '3♣', '2♣',
   ]
 
+  useEffect(() => {
+    if (result.length > 0) {
+      save();
+    }
+  }, [result]);
+
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -292,7 +298,7 @@ function Blackjack() {
   }
 
   function splitHand() {
-
+    alert('function not yet available.')
   }
 
   function stay() {
@@ -311,6 +317,20 @@ function Blackjack() {
     setPlayerHand([]);
     setResult('');
     setDealTo(null);
+  }
+
+  function save() {
+    localStorage.setItem("parlor-games-blackjack", JSON.stringify(money));
+  }
+
+  function load() {
+    try {
+      let saved = Number(localStorage.getItem("parlor-games-blackjack"));
+      setMoney(saved);
+      newGame();
+    } catch (e) {
+      newGame();
+    }
   }
 
 
@@ -367,6 +387,7 @@ function Blackjack() {
           <div className="blackjack-container">
             <br />
             <Button onClick={() => newGame()}>New Game</Button>
+            {localStorage.getItem("parlor-games-blackjack") ? <Button onClick={() => load()}>Load Game</Button> : <></>}
           </div> : <></>}
       </div>
     </Container >
