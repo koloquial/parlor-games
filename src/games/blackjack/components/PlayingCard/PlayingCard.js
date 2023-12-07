@@ -42,8 +42,8 @@ function PlayingCard({ value, stage, owner, cardIndex }) {
         </Card>
 
         <Card className="playing-card-back">
-          <div className="playing-value-top" style={{ color: formatStyle(value[1]) }}>{value}</div>
-          <div className="playing-value-bottom" style={{ color: formatStyle(value[1]) }}>{value}</div>
+          <div className="playing-value-top" style={{ color: formatStyle(value[1]) }}>{value[0] === 'X' ? `10${value[1]}` : value}</div>
+          <div className="playing-value-bottom" style={{ color: formatStyle(value[1]) }}>{value[0] === 'X' ? `10${value[1]}` : value}</div>
           <div className="playing-value-suite" style={{ color: formatStyle(value[1]) }}>{value[1]}</div>
         </Card>
       </ReactCardFlip>
