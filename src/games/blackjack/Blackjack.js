@@ -29,51 +29,15 @@ function Blackjack() {
     'A♣', 'K♣', 'Q♣', 'J♣', 'X♣', '9♣', '8♣', '7♣', '6♣', '5♣', '4♣', '3♣', '2♣',
   ]
 
+
+  //save to cache upon recieving valid result
   useEffect(() => {
     if (result.length > 0) {
       save();
     }
   }, [result]);
 
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
-
-  function newGame() {
-    //set active to true
-    setActive(true);
-
-    //shuffle deck
-    let tempDeck = shuffle(cardBank);
-    setDeck(tempDeck);
-
-    //set stage to bet
-    setStage('bet');
-  }
-
-  function handleBet(event) {
-    setBet(Number(event.target.value));
-  }
-
-  function placeBet() {
-    //set the pot
-    setPot(bet);
-
-    let tempMoney = money - bet;
-    //remove money from player
-    setMoney(tempMoney);
-
-    //set stage to deal cards
-    setStage('deal');
-    setDealTo('player');
-  }
-
+  //governs alternating card dealing
   useEffect(() => {
     //alternate between dealing to player and dealer
     //when dealTo is updated and hand length is less than 2
@@ -93,18 +57,22 @@ function Blackjack() {
     }
   }, [dealTo])
 
+  //update hand sums when player/dealer recieves card
   useEffect(() => {
-    //update hand sums
     sum('player');
     sum('dealer');
   }, [playerHand, dealerHand])
 
+  //update stage from player turn to dealer turn
   useEffect(() => {
+    //if player hand sum is a bust (over 21)
     if (stage === 'player-turn' && (playerHandSum[0] >= 21)) {
       setStage('dealer-turn');
     }
   }, [stage, playerHandSum])
 
+  //update dealer sum when dealer turn is trigggered
+  //calculate end result when end stage is triggered
   useEffect(() => {
     if (stage === 'dealer-turn') {
       sum('dealer');
@@ -115,12 +83,62 @@ function Blackjack() {
     }
   }, [stage])
 
+  //calculate dealer move when dealer hand sum is triggered
   useEffect(() => {
     if (stage === 'dealer-turn') {
       setTimeout(() => dealerMove(), 1000);
     }
   }, [dealerHandSum])
 
+  //shuffle deck
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
+  //govern new game
+  function newGame() {
+    //set active to true
+    setActive(true);
+
+    //shuffle deck
+    let tempDeck = shuffle(cardBank);
+    setDeck(tempDeck);
+
+    //set stage to bet
+    setStage('bet');
+  }
+
+  //bet handler for slider input
+  function handleBet(event) {
+    setBet(Number(event.target.value));
+  }
+
+  //fired after placing bet
+  function placeBet(val) {
+    //set the pot
+    if (val) {
+      setPot(val);
+    } else {
+      setPot(bet);
+    }
+
+    //remove money from player
+    let tempMoney = money - bet;
+    setMoney(tempMoney);
+
+    //set stage to deal card to player/dealer
+    setStage('deal');
+    //::see [dealTo] useEffect
+    setDealTo('player');
+  }
+
+  //calculates end stage result
   function calculateResult() {
     //get dealer result
     let dealerRes = 0;
@@ -138,12 +156,15 @@ function Blackjack() {
       playerRes = playerHandSum[0];
     }
 
+    //generate the high winnings (doubled)
+    //and low bet (push)
     let high = bet * 2;
     let low = bet;
 
     let winHigh = high + money;
     let winLow = low + money;
 
+    //decide winner and issue winnings
     if (playerRes > dealerRes && playerRes < 22) {
       setResult(`You win! +$${high}`);
       setMoney(winHigh);
@@ -167,40 +188,35 @@ function Blackjack() {
     }
   }
 
+  //dealer decision tree 
   function dealerMove() {
     if (playerHandSum[0] > 21) {
-      console.log('move 1')
       setStage('end');
 
     } else if (dealerHandSum[0] > 21) {
-      console.log('move 2')
       setStage('end');
 
     } else if (dealerHandSum[0] === 21 || dealerHandSum[1] === 21) {
-      console.log('move 3')
       setStage('end');
 
     } else if (dealerHandSum[1] > 16 && dealerHandSum[1] < 22) {
-      console.log('move 4')
       setStage('end');
 
     } else if (dealerHandSum[0] > 16 && dealerHandSum[0] < 22) {
-      console.log('move 5')
       setStage('end');
 
     } else if (dealerHandSum[0] <= 16) {
-      console.log('move 6')
       draw('dealer');
 
     } else {
-      console.log('move 7', dealerHandSum)
       setStage('end');
     }
   }
 
+  //calculate sum of cards in hand
   function sum(hand) {
     if (hand === 'dealer' && stage !== 'dealer-turn' && stage !== 'end') {
-      //hide dealer sum
+      //hide dealer sum if the hand is dealers and it is not dealer turn
       setDealerHandSum(['?', '?']);
 
     } else {
@@ -250,6 +266,7 @@ function Blackjack() {
     }
   }
 
+  //draw card and put into player/dealer hand
   function draw(hand) {
     //copy deck
     let copyDeck = [...deck];
@@ -287,6 +304,8 @@ function Blackjack() {
     }
   }
 
+  //double bet and draw a single card
+  //switch to dealer-turn afterwards
   function doubleDown() {
     let newPot = pot + bet;
     let newMoney = money - bet;
@@ -297,14 +316,17 @@ function Blackjack() {
     setStage('dealer-turn');
   }
 
+  //split hand into two separate bets
   function splitHand() {
-    alert('function not yet available.')
+    alert('Function not yet available.')
   }
 
+  //keep current player position and change stage to dealer turn
   function stay() {
     setStage('dealer-turn');
   }
 
+  //reset necessary variables for a next hand
   function nextHand() {
     let tempDeck = shuffle(cardBank);
     setDeck(tempDeck);
@@ -319,10 +341,12 @@ function Blackjack() {
     setDealTo(null);
   }
 
+  //save money to localstorage
   function save() {
     localStorage.setItem("parlor-games-blackjack", JSON.stringify(money));
   }
 
+  //load money from local storage
   function load() {
     try {
       let saved = Number(localStorage.getItem("parlor-games-blackjack"));
@@ -332,7 +356,6 @@ function Blackjack() {
       newGame();
     }
   }
-
 
   return (
     <Container fluid>
@@ -345,8 +368,14 @@ function Blackjack() {
         {stage === 'bet' ?
           <div className="blackjack-container">
             <p><GiPayMoney /> ${bet}</p>
+            <p>Quick bet</p>
+            <Button onClick={() => placeBet(5)}>$5</Button>
+            <Button onClick={() => placeBet(10)}>$10</Button>
+            <Button onClick={() => placeBet(20)}>$20</Button>
+            <Button onClick={() => placeBet(50)}>$50</Button>
+            <br /><br />
             <input type="range" min="1" max={money} value={bet} onChange={handleBet}></input>
-            <br />
+            <br /><br />
             <Button onClick={() => placeBet()}>Place Bet</Button>
           </div> : <></>}
 
@@ -359,7 +388,7 @@ function Blackjack() {
 
         {stage === 'deal' || stage === 'player-turn' || stage === 'dealer-turn' || stage === 'end' ?
           <div className="blackjack-pot-container">
-            <p><GrMoney /><br />${pot * 2}</p>
+            <p><GrMoney /> ${pot * 2}</p>
           </div> : <></>}
 
         {stage === 'deal' || stage === 'player-turn' || stage === 'dealer-turn' || stage === 'end' ?

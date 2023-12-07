@@ -26,6 +26,14 @@ function PlayingCard({ value, stage, owner, cardIndex }) {
     }
   }, [stage])
 
+  function formatStyle(suite) {
+    switch (suite) {
+      case '◆':
+      case '♥': return 'red';
+      default: return 'black';
+    }
+  }
+
   return (
     <div style={{ display: 'inline-block', marginRight: '5px' }}>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
@@ -34,7 +42,9 @@ function PlayingCard({ value, stage, owner, cardIndex }) {
         </Card>
 
         <Card className="playing-card-back">
-          <div>{value}</div>
+          <div className="playing-value-top" style={{ color: formatStyle(value[1]) }}>{value}</div>
+          <div className="playing-value-bottom" style={{ color: formatStyle(value[1]) }}>{value}</div>
+          <div className="playing-value-suite" style={{ color: formatStyle(value[1]) }}>{value[1]}</div>
         </Card>
       </ReactCardFlip>
     </div>
