@@ -57,11 +57,9 @@ function Blackjack() {
 
   function placeBet() {
     //set the pot
-    console.log('set pot to:', bet);
     setPot(bet);
 
     let tempMoney = money - bet;
-    console.log('tempMoney', tempMoney)
     //remove money from player
     setMoney(tempMoney);
 
@@ -71,7 +69,6 @@ function Blackjack() {
   }
 
   useEffect(() => {
-    console.log('[DEALTO] STAGE', stage);
     //alternate between dealing to player and dealer
     //when dealTo is updated and hand length is less than 2
     if (stage === 'deal') {
@@ -86,8 +83,6 @@ function Blackjack() {
       } else {
         //do nothing
         setDealTo(null);
-        console.log('player hand', playerHand);
-        console.log('dealer hand', dealerHand)
       }
     }
   }, [dealTo])
@@ -107,8 +102,6 @@ function Blackjack() {
   useEffect(() => {
     if (stage === 'dealer-turn') {
       sum('dealer');
-      console.log('stage - dealer')
-      setTimeout(() => dealerMove(), 1000);
     }
 
     if (stage === 'end') {
@@ -116,8 +109,13 @@ function Blackjack() {
     }
   }, [stage])
 
+  useEffect(() => {
+    if (stage === 'dealer-turn') {
+      setTimeout(() => dealerMove(), 1000);
+    }
+  }, [dealerHandSum])
+
   function calculateResult() {
-    console.log('called result')
     //get dealer result
     let dealerRes = 0;
     if (dealerHandSum[1] > dealerHandSum[0] && dealerHandSum[1] < 22) {
@@ -139,9 +137,6 @@ function Blackjack() {
 
     let winHigh = high + money;
     let winLow = low + money;
-
-    console.log('high', high);
-    console.log('low', low)
 
     if (playerRes > dealerRes && playerRes < 22) {
       setResult(`You win! +$${high}`);
@@ -275,7 +270,6 @@ function Blackjack() {
       setDealerHand(copyHand);
     }
 
-    console.log('STAGE CHECK', stage)
     //check if stage is deal
     if (stage === 'deal') {
       //update dealTo correct player
