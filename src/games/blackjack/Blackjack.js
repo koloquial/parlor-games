@@ -121,15 +121,19 @@ function Blackjack() {
 
   //fired after placing bet
   function placeBet(val) {
+    let tempMoney = 0;
+    console.log('val', val)
     //set the pot
     if (val) {
       setPot(val);
+      setBet(val);
+      tempMoney = money - val;
     } else {
       setPot(bet);
+      tempMoney = money - bet;
     }
 
     //remove money from player
-    let tempMoney = money - bet;
     setMoney(tempMoney);
 
     //set stage to deal card to player/dealer
