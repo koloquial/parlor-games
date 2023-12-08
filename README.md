@@ -14,7 +14,7 @@ https://parlor-games.vercel.app/
 - react-icons
 - react-card-flip (Memory Match)
 
-#### Hangman APIs:
+#### Mystery Word APIs:
 
 - Free Dictionary API (https://dictionaryapi.dev)
 - Random Word API (https://random-word-api.vercel.app)

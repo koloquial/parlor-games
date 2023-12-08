@@ -255,21 +255,21 @@ function MysteryWord() {
         <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
             <div className="hangman-container hangman-box">
+              <h5>Guesses</h5>
+              {guesses.map((letter, index) => {
+                return <span key={`guesses-${index}`}>{letter}&nbsp;</span>
+              })}
+            </div> : <></>}
+        </Col>
+        <Col xs={12} sm={12} md={4} lg={4}>
+          {active ?
+            <div className="hangman-container hangman-box">
               <h5>Word</h5>
               {dashes ? <div id='dash-container'>
                 {dashes.map((letter, index) => {
                   return <span key={`dashes-${index}`}>{letter}&nbsp;</span>
                 })}
               </div> : <></>}
-            </div> : <></>}
-        </Col>
-        <Col xs={12} sm={12} md={4} lg={4}>
-          {active ?
-            <div className="hangman-container hangman-box">
-              <h5>Guesses</h5>
-              {guesses.map((letter, index) => {
-                return <span key={`guesses-${index}`}>{letter}&nbsp;</span>
-              })}
             </div> : <></>}
         </Col>
         <Col xs={12} sm={12} md={4} lg={4}>

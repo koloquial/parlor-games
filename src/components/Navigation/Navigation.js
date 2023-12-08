@@ -14,7 +14,7 @@ function Navigation() {
             <Nav.Link href="/">Home</Nav.Link>
             <NavDropdown title="Games" id="basic-nav-dropdown">
               <NavDropdown.Item href="/tic-tac-toe">Tic-Tac-Toe</NavDropdown.Item>
-              <NavDropdown.Item href="/hangman">Hangman</NavDropdown.Item>
+              <NavDropdown.Item href="/mystery-word">Mystery Word</NavDropdown.Item>
               <NavDropdown.Item href="/memory-match">Memory Match</NavDropdown.Item>
               <NavDropdown.Item href="/blackjack">Blackjack</NavDropdown.Item>
             </NavDropdown>
