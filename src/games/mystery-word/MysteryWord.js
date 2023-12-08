@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-function Hangman() {
+function MysteryWord() {
   const [wordList, setWordList] = useState([]);
   const [hint, setHint] = useState(null);
   const [active, setActive] = useState(false);
@@ -244,7 +244,7 @@ function Hangman() {
   return (
     <Container fluid>
       <div className="hangman-title">
-        <h2>Hangman</h2>
+        <h2>Mystery Word</h2>
         {!active ? <p>Click new game to start.</p>
           : <p>
             <b>Round:</b> {round} / 10 || <b>Points:</b> {totalPoints}
@@ -255,7 +255,7 @@ function Hangman() {
         <Col xs={12} sm={12} md={4} lg={4}>
           {active ?
             <div className="hangman-container hangman-box">
-              <h5>Mystery Word</h5>
+              <h5>Word</h5>
               {dashes ? <div id='dash-container'>
                 {dashes.map((letter, index) => {
                   return <span key={`dashes-${index}`}>{letter}&nbsp;</span>
@@ -334,5 +334,5 @@ function Hangman() {
 
 }
 
-export default Hangman;
+export default MysteryWord;
 
