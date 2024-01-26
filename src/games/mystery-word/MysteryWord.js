@@ -257,7 +257,7 @@ function MysteryWord() {
             <div className="hangman-container hangman-box">
               <h5>Guesses</h5>
               {guesses.map((letter, index) => {
-                return <span key={`guesses-${index}`}>{letter}&nbsp;</span>
+                return <span className='color-correct' key={`guesses-${index}`}>{letter}&nbsp;</span>
               })}
             </div> : <></>}
         </Col>
@@ -267,7 +267,7 @@ function MysteryWord() {
               <h5>Word</h5>
               {dashes ? <div id='dash-container'>
                 {dashes.map((letter, index) => {
-                  return <span key={`dashes-${index}`}>{letter}&nbsp;</span>
+                  return <span className='color-correct' key={`dashes-${index}`}>{letter}&nbsp;</span>
                 })}
               </div> : <></>}
             </div> : <></>}
@@ -275,7 +275,7 @@ function MysteryWord() {
         <Col xs={12} sm={12} md={4} lg={4}>
           {hint ? <div className="hangman-container hangman-box">
             <h5>Hint</h5>
-            {formatHint()}
+            <span className='color-correct'>{formatHint()}</span>
           </div> : <></>}
         </Col>
       </Row>
@@ -314,11 +314,11 @@ function MysteryWord() {
         </div> : <></>}
 
       {endRound ? <div className="hangman-container">
-        {result}
+        <span className='color-correct'>{result}</span>
       </div> : <></>}
 
       {endGame ? <div className="hangman-container">
-        Game over.
+      <span className='color-correct'>Game over.</span>
       </div> : <></>}
 
       {endRound && round < 10 ? <div className="hangman-container">

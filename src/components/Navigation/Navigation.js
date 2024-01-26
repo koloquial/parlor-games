@@ -5,14 +5,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navigation() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg">
       <Container>
-        <Navbar.Brand href="/">Parlor Games</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Brand href="/" className='title-brand'>P</Navbar.Brand>
+        <Navbar.Toggle/>
+        <Navbar.Collapse>
+          <Nav>
             <Nav.Link href="/">Home</Nav.Link>
-            <NavDropdown title="Games" id="basic-nav-dropdown">
+            <NavDropdown title="Games">
               <NavDropdown.Item href="/tic-tac-toe">Tic-Tac-Toe</NavDropdown.Item>
               <NavDropdown.Item href="/mystery-word">Mystery Word</NavDropdown.Item>
               <NavDropdown.Item href="/memory-match">Memory Match</NavDropdown.Item>

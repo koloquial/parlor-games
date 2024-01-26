@@ -5,6 +5,7 @@
 .flip-card-front{
   cursor: pointer;
   border: 0;
+  background-color: var(--shade2);
 }
 
 .flip-card-back{
@@ -16,9 +17,9 @@
 }
 
 .memory-card:hover{
-  background-color: lightgreen;
+  background-color: var(--shade4);
 }
 
 .memory-card-matched{
-  background-color: lightblue;
+  background-color: var(--shade3);
 }

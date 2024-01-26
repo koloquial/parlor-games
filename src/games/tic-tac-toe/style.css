@@ -30,7 +30,7 @@
 }
 
 .ttt-square:hover{
-  background-color: lightgreen;
+  background-color: var(--shade4);
 }
 
 .square-idle{
@@ -49,12 +49,12 @@
 }
 
 .ttt-x{
-  background-color: lightblue;
+  background-color: var(--shade2);
   cursor: not-allowed;
 }
 
 .ttt-o{
-  background-color: lightslategrey;
+  background-color: var(--shade3);
   cursor: not-allowed;
 }
 
